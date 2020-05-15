@@ -344,8 +344,6 @@ void setup() {
   
   // Set too many features? Reset them all with the following function.
   // lightning.resetSettings();
-
-  
   
 }
 
