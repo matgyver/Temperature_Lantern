@@ -30,7 +30,7 @@
  
  // INCLUDES
  // ---------------------------------------------------
- #include <Adafruit_Arcada.h>
+#include <Adafruit_Arcada.h>
 #include <Adafruit_SPIFlash.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_LSM6DS33.h>
@@ -38,6 +38,7 @@
 #include <Adafruit_SHT31.h>
 #include <Adafruit_APDS9960.h>
 #include <Adafruit_BMP280.h>
+#include <Adafruit_NeoPixel.h>
 #include <PDM.h>
 #include <SPI.h>
 #include <Wire.h>
@@ -46,6 +47,17 @@
 // DEFINES
 // -----------------------------------------------------
 // Defines for the AS3935
+
+// Which pin on the Arduino is connected to the NeoPixels?
+// On a Trinket or Gemma we suggest changing this to 1:
+#define LED_PIN    16
+
+// How many NeoPixels are attached to the Arduino?
+#define LED_COUNT 12
+
+// Declare our NeoPixel strip object:
+Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
+
 #define INDOOR 0x12 
 #define OUTDOOR 0xE
 #define LIGHTNING_INT 0x08
@@ -109,6 +121,11 @@ void setup() {
   Serial.println("OS VER - 1.0");
   Serial.println("Booting up...");
   Serial.println("Initializing Hardware...");
+  Serial.println("Initializing Neopixels...OK");
+
+  strip.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
+  strip.show();            // Turn OFF all pixels ASAP
+  strip.setBrightness(50); // Set BRIGHTNESS to about 1/5 (max = 255)
 
   // Configure Adafruit Clue
 
